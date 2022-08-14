@@ -1,13 +1,6 @@
-import {useState} from 'react'
+import React from 'react';
 import './App.css';
-
-const App = () => {
-  return (
-  <div>
-    <GuGuDan />  
-  </div>
-  );
-}
+import { useState } from 'react';
 
 const GuGuDan = () => {
 
@@ -32,7 +25,7 @@ const GuGuDan = () => {
     <div className='app'>
       <h2>구구단 게임 💬</h2>
       <div>{first} 곱하기 {second}은(는)?</div>
-      <form onSubmit={(e) => {
+      <form onSubmit={(e: React.FormEvent<HTMLElement>) => {
         e.preventDefault();
         {Number(value) === (first*second) ? right() : wrong()}
         }}>
@@ -44,6 +37,4 @@ const GuGuDan = () => {
 )
 
 }
-
-
-export default App;
+export default GuGuDan;
