@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import Ball from "./Ball";
+import "./Lotto.css";
 
 const getWinNumbers = () => {
     const candidate = Array(45).fill().map((v,i) => i+1);

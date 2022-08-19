@@ -1,13 +1,14 @@
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
-import rpsImg from './rps.jpeg';
+import './Rps.css';
 
+// const rpsCoords = {
+//   rock : '✊',
+//   scissors: '✌️',
+//   paper : '🖐'
+// }
 
-const rpsCoords = {
-  rock : '0',
-  scissors: '-142px',
-  paper : '-284px'
-}
+const rpsCoords=['✊', '✌️', '🖐'];
 
 const scores = {
   scissors: 1,
@@ -15,18 +16,26 @@ const scores = {
   paper : -1
 }
 
-
 const RockPaperScissors = () => {
 
   const [result, setResult] = useState('');
-  const [imgCoord, setImgCoord] = useState(rpsCoords.rock);
+  const [imgCoord, setImgCoord] = useState(rpsCoords[0]);
   const [score, setScore] = useState(0);
   const interval = useRef();
 
   const computerChoice = (imgCoord) => {
-    return Object.entries(rpsCoords).find(function(v) {
-      return v[1] === imgCoord;
-    })[0];
+    if(imgCoord === '✊'){
+     return 'rock'
+    }
+    else if(imgCoord === '✌️'){
+      return 'scissors'
+    }
+    else{
+      return 'paper'
+    }
+    // return Object.entries(rpsCoords).find(function(v) {
+    //   return v[1] === imgCoord;
+    // })[0];
   };
 
   const onClickBtn = (choice) => {
@@ -52,19 +61,20 @@ const RockPaperScissors = () => {
   }
 
   const changeHand = () => {
-      if(imgCoord === rpsCoords.rock){
-        setImgCoord(rpsCoords.scissors);
-      }
-      else if(imgCoord === rpsCoords.scissors){
-        setImgCoord(rpsCoords.paper);
-      }
-      else if(imgCoord === rpsCoords.paper){
-        setImgCoord(rpsCoords.rock);
-      }
+    setImgCoord(rpsCoords[Math.floor(Math.random()*rpsCoords.length)]); 
+      // if(imgCoord === rpsCoords.rock){
+      //   setImgCoord(rpsCoords.scissors);
+      // }
+      // else if(imgCoord === rpsCoords.scissors){
+      //   setImgCoord(rpsCoords.paper);
+      // }
+      // else if(imgCoord === rpsCoords.paper){
+      //   setImgCoord(rpsCoords.rock);
+      // }
     }
 
   useEffect(() => {
-    interval.current = setInterval(changeHand, 1000);
+    interval.current = setInterval(changeHand, 100);
     return () => {
       clearInterval(interval.current);
     }
@@ -72,11 +82,11 @@ const RockPaperScissors = () => {
 
   return (
     <div className="App">
-    <div id="computer" style={{ background: `url(https://en.pimg.jp/023/182/267/1/23182267.jpg), ${imgCoord}, 0`}} />
+    <div id="computer">{imgCoord}</div>
     <div>
-      <button id="rock" className='btn' onClick={() => {onClickBtn("rock")}}>바위</button>
-      <button id="scissors" className='btn' onClick={() => {onClickBtn("scissors")}}>가위</button>
-      <button id="paper" className='btn' onClick={() => {onClickBtn("paper")}}>보</button>
+      <button id="rock" className='btn' onClick={() => {onClickBtn("rock")}}>✊</button>
+      <button id="scissors" className='btn' onClick={() => {onClickBtn("scissors")}}>✌️</button>
+      <button id="paper" className='btn' onClick={() => {onClickBtn("paper")}}>🖐</button>
     </div>
     <div>{result}</div>
     <div>현재 {score}점</div>
